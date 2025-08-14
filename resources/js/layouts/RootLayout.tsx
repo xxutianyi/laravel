@@ -2,7 +2,7 @@ import icon from '@/images/icon.png';
 import { Head } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <>
             <Head>

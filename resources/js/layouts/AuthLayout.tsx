@@ -1,7 +1,7 @@
 import { useConfig } from '@/hooks/useConfig';
 import background from '@/images/decoration/background.png';
 import logo from '@/images/icon.png';
-import Layout from '@/layouts/layout';
+import RootLayout from '@/layouts/RootLayout';
 import styles from '@/styles/layout.auth.module.css';
 import { PropsWithChildren } from 'react';
 
@@ -13,7 +13,7 @@ export default function AuthLayout({
     const APP_NAME = import.meta.env.VITE_APP_NAME;
 
     return (
-        <Layout>
+        <RootLayout>
             <div className={styles.page} style={{ backgroundImage: `url(${background})` }}>
                 <div className={styles.container}>
                     {!noHeader && (
@@ -29,6 +29,6 @@ export default function AuthLayout({
                     {children}
                 </div>
             </div>
-        </Layout>
+        </RootLayout>
     );
 }

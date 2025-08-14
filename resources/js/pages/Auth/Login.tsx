@@ -1,4 +1,4 @@
-import AuthLayout from '@/layouts/auth-layout';
+import AuthLayout from '@/layouts/AuthLayout';
 import { phoneRegex } from '@/lib/rule';
 import { codeLogin, passLogin, verifyCode } from '@/services/auth';
 import { LockOutlined, MailOutlined, MobileOutlined } from '@ant-design/icons';

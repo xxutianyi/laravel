@@ -1,17 +1,17 @@
-import { Avatar } from '@/components/avatar';
-import TestPermission from '@/components/test-permission';
-import { SpaceX } from '@/components/xudev/layout';
-import AppLayout from '@/layouts/app-layout';
-import UserCreate from '@/pages/components/user-create';
-import UserDestroy from '@/pages/components/user-destroy';
-import UserPermissions from '@/pages/components/user-permissions';
-import UserUpdate from '@/pages/components/user-update';
+import { Avatar } from '@/components/xudev/Avatar';
+import { SpaceX } from '@/components/xudev/Layout';
+import Permit from '@/components/xudev/Permit';
+import AppLayout from '@/layouts/AppLayout';
 import { indexUsers } from '@/services/organize';
 import { Team, User } from '@/types';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Tag } from 'antd';
 import { useRef, useState } from 'react';
-import { TeamList } from './components/team-list';
+import TeamList from './components/TeamList';
+import UserCreate from './components/UserCreate';
+import UserDestroy from './components/UserDestroy';
+import UserPermissions from './components/UserPermissions';
+import UserUpdate from './components/UserUpdate';
 
 export default function Organize() {
     const tableRef = useRef<ActionType>(null);
@@ -62,15 +62,15 @@ export default function Organize() {
             hideInSearch: true,
             render: (_, entity) => (
                 <SpaceX>
-                    <TestPermission check={`user:${entity.id}:write:permission`}>
+                    <Permit check={`user:${entity.id}:write:permission`}>
                         <UserPermissions user={entity} />
-                    </TestPermission>
-                    <TestPermission check={`user:${entity.id}:write`}>
+                    </Permit>
+                    <Permit check={`user:${entity.id}:write`}>
                         <UserUpdate refresh={refresh} user={entity} />
-                    </TestPermission>
-                    <TestPermission check={`user:${entity.id}:delete`}>
+                    </Permit>
+                    <Permit check={`user:${entity.id}:delete`}>
                         <UserDestroy refresh={refresh} user={entity} />
-                    </TestPermission>
+                    </Permit>
                 </SpaceX>
             ),
         },

@@ -1,5 +1,5 @@
-import { Base64ImageUploader } from '@/components/xudev/inputs';
-import AuthLayout from '@/layouts/auth-layout';
+import { Base64ImageUploader } from '@/components/xudev/Inputs';
+import AuthLayout from '@/layouts/AuthLayout';
 import { phoneRegex } from '@/lib/rule';
 import { verifyCode } from '@/services/auth';
 import { LockOutlined, MailOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';

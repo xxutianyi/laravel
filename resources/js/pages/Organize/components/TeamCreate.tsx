@@ -3,7 +3,7 @@ import { Team } from '@/types';
 import { ModalForm, ProFormText, ProFormTreeSelect } from '@ant-design/pro-components';
 import { Button } from 'antd';
 
-export function TeamCreate({ refresh }: { refresh: () => void }) {
+export default function TeamCreate({ refresh }: { refresh: () => void }) {
     async function onFinish(data: Partial<Team>) {
         await createTeam(data);
         refresh();

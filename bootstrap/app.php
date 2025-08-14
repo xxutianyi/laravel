@@ -9,20 +9,21 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wisdech\SMSVerify\Exception\SMSException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        api: __DIR__ . '/../routes/api.php',
+        commands: __DIR__ . '/../routes/console.php',
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
         $middleware->encryptCookies();
         $middleware->redirectUsersTo('/apps');
-        $middleware->redirectGuestsTo(fn ($request) => redirectToLogin($request));
+        $middleware->redirectGuestsTo(fn($request) => redirectToLogin($request));
 
         $middleware->web(append: [
             HandleInertiaRequests::class,
@@ -30,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (Throwable $e, Request $request) {
+        $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
             if ($request->expectsJson()) {
 
                 if (is_a($e, AuthenticationException::class)) {
@@ -54,6 +55,18 @@ return Application::configure(basePath: dirname(__DIR__))
                 }
 
                 return apiResponse($e->getTrace(), $e->getMessage(), -1, API_RESPONSE_ERROR);
+            } else {
+
+                $inertiaEnv = !app()->environment(['local', 'testing']);
+                $inertiaStatus = in_array($response->getStatusCode(), [500, 503, 404, 403, 419]);
+
+                if ($inertiaEnv && $inertiaStatus) {
+                    return inertia('ErrorPage', ['status' => $response->getStatusCode()])
+                        ->toResponse($request)
+                        ->setStatusCode($response->getStatusCode());
+                }
             }
+
+            return $response;
         });
     })->create();

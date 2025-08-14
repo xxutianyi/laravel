@@ -1,4 +1,4 @@
-import { Avatar, AvatarProps } from '@/components/avatar';
+import { Avatar, AvatarProps } from '@/components/xudev/Avatar';
 import { getUserInfo } from '@/services/profile';
 import { useRequest } from 'ahooks';
 

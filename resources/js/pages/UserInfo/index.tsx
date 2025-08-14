@@ -1,7 +1,7 @@
-import { IconLabel } from '@/components/xudev/label';
-import { SpaceX, SpaceY } from '@/components/xudev/layout';
+import { IconLabel } from '@/components/xudev/Label';
+import { SpaceX, SpaceY } from '@/components/xudev/Layout';
 import useUserInfo from '@/hooks/useUserInfo';
-import AppLayout from '@/layouts/app-layout';
+import AppLayout from '@/layouts/AppLayout';
 import { phoneRegex } from '@/lib/rule';
 import { PasswordUpdate, updatePassword, updateUserInfo } from '@/services/profile';
 import styles from '@/styles/page.userinfo.module.css';

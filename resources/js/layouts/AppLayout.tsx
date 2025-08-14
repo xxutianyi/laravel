@@ -1,7 +1,7 @@
 import { useConfig } from '@/hooks/useConfig';
 import useUserInfo from '@/hooks/useUserInfo';
 import logo from '@/images/icon.png';
-import Layout from '@/layouts/layout';
+import RootLayout from '@/layouts/RootLayout';
 import routes from '@/routes';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import {
@@ -51,7 +51,7 @@ export default ({ children }: PropsWithChildren) => {
     }
 
     return (
-        <Layout>
+        <RootLayout>
             <ProConfigProvider>
                 <ConfigProvider>
                     <ProLayout
@@ -73,6 +73,6 @@ export default ({ children }: PropsWithChildren) => {
                     </ProLayout>
                 </ConfigProvider>
             </ProConfigProvider>
-        </Layout>
+        </RootLayout>
     );
 };

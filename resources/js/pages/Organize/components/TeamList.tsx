@@ -1,55 +1,56 @@
-import TestPermission from '@/components/test-permission';
-import { Tree } from '@/components/xudev/tree';
-import useTeams from '@/hooks/useTeams';
+import { Tree } from '@/components/xudev/BigTree';
+import Permit from '@/components/xudev/Permit';
 import { stopPropagation } from '@/lib/utils';
-import TeamDestroy from '@/pages/components/team-destroy';
-import { TeamUpdate } from '@/pages/components/team-update';
+import { listTeams } from '@/services/organize';
 import { Team } from '@/types';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
+import { useRequest } from 'ahooks';
 import { Dropdown, MenuProps } from 'antd';
-import { TeamCreate } from './team-create';
+import TeamCreate from './TeamCreate';
+import TeamDestroy from './TeamDestroy';
+import TeamUpdate from './TeamUpdate';
 
 type TeamListProps = {
     teamId?: Team['id'];
     setTeamId?: (id: Team['id']) => void;
 };
 
-export function TeamList({ teamId, setTeamId }: TeamListProps) {
-    const { teams, refresh } = useTeams();
+export default function TeamList({ teamId, setTeamId }: TeamListProps) {
+    const { data, refresh } = useRequest(listTeams);
 
     function TeamAction({ entity }: { entity: Team }) {
         const ActionMenuItems: MenuProps['items'] = [
             {
                 key: '1',
                 label: (
-                    <TestPermission check={`team:${entity.id}:write`}>
+                    <Permit check={`team:${entity.id}:write`}>
                         <TeamUpdate team={entity} refresh={refresh} />
-                    </TestPermission>
+                    </Permit>
                 ),
             },
             {
                 key: '2',
                 label: (
-                    <TestPermission check={`team:${entity.id}:delete`}>
+                    <Permit check={`team:${entity.id}:delete`}>
                         <TeamDestroy team={entity} refresh={refresh} />
-                    </TestPermission>
+                    </Permit>
                 ),
             },
         ];
         return (
-            <TestPermission check={`team:${entity.id}:write`}>
+            <Permit check={`team:${entity.id}:write`}>
                 <div className="my-auto ml-auto mr-2" onClick={stopPropagation}>
                     <Dropdown trigger={['click']} menu={{ items: ActionMenuItems }}>
                         <EllipsisOutlined />
                     </Dropdown>
                 </div>
-            </TestPermission>
+            </Permit>
         );
     }
 
     return (
-        <TestPermission check={`team:*:read`}>
+        <Permit check={`team:*:read`}>
             <ProCard
                 title={
                     <div className="mr-2 flex flex-col whitespace-nowrap">
@@ -58,22 +59,22 @@ export function TeamList({ teamId, setTeamId }: TeamListProps) {
                     </div>
                 }
                 className="flex-1/4"
-                loading={!teams}
+                loading={!data?.data}
                 extra={
-                    <TestPermission check={`team:*:write`}>
+                    <Permit check={`team:*:write`}>
                         <TeamCreate refresh={refresh} />
-                    </TestPermission>
+                    </Permit>
                 }
             >
                 <Tree<Team>
                     action={TeamAction}
-                    treeData={teams ?? []}
+                    treeData={data?.data ?? []}
                     fieldNames={{ title: 'name', key: 'id' }}
-                    defaultExpandedKeys={teams?.map((t) => t.id)}
+                    defaultExpandedKeys={data?.data?.map((t) => t.id)}
                     selectedKeys={[teamId ?? '']}
                     onSelect={(v) => setTeamId?.(v?.[0] as Team['id'])}
                 />
             </ProCard>
-        </TestPermission>
+        </Permit>
     );
 }

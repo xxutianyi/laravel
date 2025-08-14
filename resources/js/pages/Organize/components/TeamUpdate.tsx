@@ -2,7 +2,7 @@ import { listTeams, updateTeam } from '@/services/organize';
 import { Team } from '@/types';
 import { ModalForm, ProFormText, ProFormTreeSelect } from '@ant-design/pro-components';
 
-export function TeamUpdate({ refresh, team }: { refresh: () => void; team: Team }) {
+export default function TeamUpdate({ refresh, team }: { refresh: () => void; team: Team }) {
     async function onFinish(data: Partial<Team>) {
         await updateTeam({ id: team.id, ...data });
         refresh();

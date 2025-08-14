@@ -1,0 +1,23 @@
+@reference "../app.css";
+
+.page {
+    @apply min-h-screen w-full;
+    @apply flex items-center justify-center bg-gray-100 bg-repeat;
+
+    .container {
+        @apply z-10 flex w-full max-w-md flex-col;
+        @apply mb-24 rounded-2xl bg-white p-12 shadow-2xl;
+    }
+
+    .header {
+        @apply mx-auto mb-8 inline-flex items-center;
+
+        .logo {
+            @apply h-12 w-12 rounded-full;
+        }
+
+        .title {
+            @apply ml-4 text-2xl font-bold;
+        }
+    }
+}

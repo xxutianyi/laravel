@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+@config '../../tailwind.config.js';
+
+a.danger {
+    @apply text-red-500 hover:text-red-400;
+}
+
+::-webkit-scrollbar {
+    @apply mr-px h-0.5 w-0.5 bg-transparent;
+}
+
+::-webkit-scrollbar-corner {
+    @apply hidden;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded bg-gray-400;
+}
+
+@theme inline {
+    --color-brand: #008dff;
+    --color-brand-100: #a3e2ff;
+    --color-brand-200: #7ad1ff;
+    --color-brand-300: #52bdff;
+    --color-brand-400: #29a6ff;
+    --color-brand-500: #008dff;
+    --color-brand-600: #0070d9;
+    --color-brand-700: #0056b3;
+    --color-brand-800: #003f8c;
+    --color-brand-900: #002b66;
+}
+
+.app_icon {
+    background-color: #fde3cf;
+    color: #f56a00;
+}
+
+.custom-tree,
+.ant-select-tree {
+    .anticon {
+        display: inline-flex !important;
+    }
+
+    .ant-tree-switcher::before {
+        height: 44px !important;
+    }
+}

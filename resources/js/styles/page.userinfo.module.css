@@ -1,0 +1,13 @@
+@reference "../app.css";
+
+.user {
+    @apply mx-auto mb-4 gap-y-6;
+
+    .name {
+        @apply text-center text-lg font-bold;
+    }
+
+    .info {
+        @apply mx-auto gap-x-8 text-base;
+    }
+}

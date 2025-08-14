@@ -1,4 +1,3 @@
-import { useConfig } from '@/hooks/useConfig';
 import useUserInfo from '@/hooks/useUserInfo';
 import logo from '@/images/icon.png';
 import RootLayout from '@/layouts/RootLayout';
@@ -15,7 +14,6 @@ import { ConfigProvider, Dropdown, MenuProps } from 'antd';
 import { PropsWithChildren, ReactNode } from 'react';
 
 export default ({ children }: PropsWithChildren) => {
-    const { config } = useConfig();
     const { user, UserAvatar } = useUserInfo();
     const APP_NAME = import.meta.env.VITE_APP_NAME;
 
@@ -56,8 +54,8 @@ export default ({ children }: PropsWithChildren) => {
                 <ConfigProvider>
                     <ProLayout
                         layout="mix"
-                        logo={config?.app_icon ?? logo}
-                        title={config?.app_name ?? APP_NAME}
+                        logo={logo}
+                        title={APP_NAME}
                         avatarProps={{
                             src: <UserAvatar />,
                             title: user?.name,
